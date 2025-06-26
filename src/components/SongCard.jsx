@@ -1,43 +1,40 @@
-import React, { useState, useRef } from "react";
-import SongCard from "./components/SongCard";
-import "./App.css";
-import songsData from "./songsData";
+import React, { useRef } from "react";
+import "./SongCard.css";
 
-function App() {
-  const [currentlyPlayingId, setCurrentlyPlayingId] = useState(null);
-  const audioRefs = useRef({});
+function SongCard({ song }) {
+  const audioRef = useRef(null);
 
-  const handlePlay = (id) => {
-    // Pause all other songs
-    Object.keys(audioRefs.current).forEach((key) => {
-      if (key !== id && audioRefs.current[key]) {
-        audioRefs.current[key].pause();
-        audioRefs.current[key].currentTime = 0;
-      }
-    });
-    setCurrentlyPlayingId(id);
+  const handlePlay = () => {
+    audioRef.current.play();
   };
 
-  const registerAudioRef = (id, audio) => {
-    audioRefs.current[id] = audio;
+  const handlePause = () => {
+    audioRef.current.pause();
   };
 
   return (
-    <div className="app-container">
-      <h1>My Spotify-Themed Birthday Songs 🎶</h1>
-      {songsData.map((song) => (
-        <SongCard
-          key={song.id}
-          song={song}
-          isPlaying={currentlyPlayingId === song.id}
-          onPlay={() => handlePlay(song.id)}
-          registerAudioRef={registerAudioRef}
-        />
-      ))}
+    <div className="song-card">
+      <video
+        className="video-thumbnail"
+        src={song.video}
+        muted
+        loop
+        autoPlay
+      />
+
+      <div className="song-info">
+        <h3>{song.title}</h3>
+        <p>{song.artist}</p>
+      </div>
+
+      <div className="buttons">
+        <button onClick={handlePlay}>Play</button>
+        <button onClick={handlePause}>Pause</button>
+      </div>
+
+      <audio ref={audioRef} src={song.audio} />
     </div>
   );
 }
 
-export default App;
-
-
+export default SongCard;
