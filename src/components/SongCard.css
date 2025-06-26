@@ -58,10 +58,6 @@
   transform: rotate(-90deg) scale(1.1);   /* ✅ Keeps the tilt, only scales up */
 }
 
-.video-thumbnail:hover {
-  transform: rotate(-5deg) scale(1.05);   /* ✅ Small hover effect (optional) */
-}
-
 .buttons {
   display: flex;
   gap: 8px;
