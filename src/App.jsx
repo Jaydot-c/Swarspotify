@@ -1,17 +1,21 @@
-import React from "react";
-import SongCard from "./components/SongCard";
+// src/App.jsx
 import "./App.css";
-import songsData from "./songsData";
+import songs from "./songsData";
+import SongCard from "./components/SongCard";
 
 function App() {
   return (
-    <div className="app-container">
-      <h1>My Spotify-Themed Birthday Songs 🎶</h1>
-      {songsData.map((song) => (
-        <SongCard key={song.id} song={song} />
-      ))}
+    <div className="App">
+      <h1> Swarspotify💖</h1>
+      <p className="subtitle">Shuddh Desi romance💕</p>
+      <div className="song-list">
+        {songs.map((song, index) => (
+          <SongCard key={index} {...song} />
+        ))}
+      </div>
     </div>
   );
 }
 
 export default App;
+
