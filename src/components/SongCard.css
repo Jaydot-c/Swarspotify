@@ -55,7 +55,7 @@
 }
 
 .video-thumbnail:hover {
-  transform: rotate(0deg) scale(1.1);   /* ✅ Keeps the tilt, only scales up */
+  transform: rotate(90deg) scale(1.1);   /* ✅ Keeps the tilt, only scales up */
 }
 
 .buttons {
