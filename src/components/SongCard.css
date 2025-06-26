@@ -44,11 +44,18 @@
 }
 
 .video-thumbnail {
-  width: 50px;
-  height: 50px;
-  border-radius: 6px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
+  border-radius: 10px;
   margin-right: 15px;
+  transform: rotate(-10deg);          /* ✅ Tilt left */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover {
+  transform: rotate(-5deg) scale(1.05);   /* ✅ Small hover effect (optional) */
 }
 
 .buttons {
