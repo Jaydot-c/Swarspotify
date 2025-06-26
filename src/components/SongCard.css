@@ -58,6 +58,7 @@
   transform: rotate(-90deg) scale(1.1);   /* ✅ Keeps the tilt, only scales up */
 }
 
+
 .buttons {
   display: flex;
   gap: 8px;
