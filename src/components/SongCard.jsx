@@ -1,48 +1,49 @@
 import React, { useRef } from "react";
 import "./SongCard.css";
 
-export default function SongCard({ title, albumCover, video, audio, message }) {
-  const audioRef = useRef();
-  const videoRef = useRef();
+function SongCard({ song, isPlaying, onPlay, registerAudioRef }) {
+  const audioRef = useRef(null);
 
-  const handlePlay = () => {
-    audioRef.current.play();
-    if (videoRef.current) {
-      videoRef.current.play();
+  const handlePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        onPlay();  // Notify parent to pause others
+        audioRef.current.play();
+      }
     }
   };
 
-  const handlePause = () => {
-    audioRef.current.pause();
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-  };
+  React.useEffect(() => {
+    registerAudioRef(song.id, audioRef.current);
+  }, [song.id, registerAudioRef]);
 
   return (
     <div className="song-card">
-      <img src={albumCover} alt="Album Cover" className="album-cover" />
-
-      <div className="song-info">
-        <div className="title">{title}</div>
-        <div className="message">{message}</div>
-      </div>
-
-      {/* Thumbnail video */}
       <video
         className="video-thumbnail"
-        src={video}
+        src={song.video}
         muted
         loop
-        ref={videoRef}
+        autoPlay
       />
 
-      <audio ref={audioRef} src={audio}></audio>
+      <div className="song-info">
+        <h3>{song.title}</h3>
+        <p>{song.artist}</p>
+      </div>
 
       <div className="buttons">
-        <button className="play" onClick={handlePlay}>▶ Play</button>
-        <button className="pause" onClick={handlePause}>❚❚ Pause</button>
+        <button onClick={handlePlayPause}>
+          {isPlaying ? "Pause" : "Play"}
+        </button>
       </div>
+
+      <audio ref={audioRef} src={song.audio} />
     </div>
   );
 }
+
+export default SongCard;
+
