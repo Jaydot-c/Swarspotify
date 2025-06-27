@@ -35,6 +35,15 @@ const songs = [
     
     message: "By Swarika 💕"
   },
+    {
+    title: "khuda jaane🤍",
+    albumCover: process.env.PUBLIC_URL + "/album/Screenshot 2025-06-27 115053.png",
+    video: "/videos/song4.mp4",
+    audio: "/songs/song4.mp3",
+    
+    message: "By Swarika 💕"
+  },
+  
   
   
 ];
