@@ -1,22 +1,32 @@
-import React, { useRef } from "react";
+
+import React, { useRef, useEffect } from "react";
 import "./SongCard.css";
 
-export default function SongCard({ title, albumCover, video, audio, message }) {
+
+
+export default function SongCard({ title, albumCover, video, audio, message,registerAudioRef,index, onPlay,isPlaying })
+ {
   const audioRef = useRef();
   const videoRef = useRef();
 
-  const handlePlay = () => {
-    audioRef.current.play();
-    if (videoRef.current) {
-      videoRef.current.play();
+  useEffect(() => {
+    if (registerAudioRef && audioRef.current) {
+      registerAudioRef(index,{
+        audio: audioRef.current,
+        video: videoRef.current})
+      ;
     }
+  }, [registerAudioRef, index]);
+
+   const handlePlay = () => {
+    if (onPlay) onPlay();
+    if (audioRef.current) audioRef.current.play();
+    if (videoRef.current) videoRef.current.play();
   };
 
-  const handlePause = () => {
-    audioRef.current.pause();
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
+ const handlePause = () => {
+    if (audioRef.current) audioRef.current.pause();
+    if (videoRef.current) videoRef.current.pause();
   };
 
   return (
